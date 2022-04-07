@@ -19,8 +19,6 @@ public class CabinetCoreMaterial {
 	private Integer ccmId;
 	@Column(name="ccm_name")
 	private String ccmName;
-	@Column(name="ccm_price")
-	private float ccmPrice;
 	@Column(name="dt_createdon")
 	private LocalDateTime dtCreatedOn;
 	public Integer getCcmId() {
@@ -35,34 +33,12 @@ public class CabinetCoreMaterial {
 	public void setCcmName(String ccmName) {
 		this.ccmName = ccmName;
 	}
-	public float getCcmPrice() {
-		return ccmPrice;
-	}
-	public void setCcmPrice(float ccmPrice) {
-		this.ccmPrice = ccmPrice;
-	}
 	public LocalDateTime getDtCreatedOn() {
 		return dtCreatedOn;
 	}
 	public void setDtCreatedOn(LocalDateTime dtCreatedOn) {
 		this.dtCreatedOn = dtCreatedOn;
 	}
-	public CabinetCoreMaterial(Integer ccmId, String ccmName, float ccmPrice, LocalDateTime dtCreatedOn) {
-		super();
-		this.ccmId = ccmId;
-		this.ccmName = ccmName;
-		this.ccmPrice = ccmPrice;
-		this.dtCreatedOn = dtCreatedOn;
-	}
-	public CabinetCoreMaterial() {
-		super();
-	}
-	public CabinetCoreMaterial( String ccmName, float ccmPrice) {
-		super();
-		
-		this.ccmName = ccmName;
-		this.ccmPrice = ccmPrice;
-		
-	}
+	
 
 }

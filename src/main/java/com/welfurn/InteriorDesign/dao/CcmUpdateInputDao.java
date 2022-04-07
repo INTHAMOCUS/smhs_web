@@ -1,11 +1,8 @@
 package com.welfurn.InteriorDesign.dao;
 
-import lombok.Getter;
-import lombok.Setter;
-
-
-public class CcmInputDao {
+public class CcmUpdateInputDao {
 	
+	Integer id;
 	String ccmName;
 	
 	public String getCcmName() {
@@ -15,4 +12,13 @@ public class CcmInputDao {
 		this.ccmName = ccmName;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
+
 }

@@ -1,5 +1,7 @@
 package com.welfurn.InteriorDesign.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.welfurn.InteriorDesign.dao.CcmInputDao;
+import com.welfurn.InteriorDesign.dao.CcmUpdateInputDao;
+import com.welfurn.InteriorDesign.dao.LayoutInputDao;
+import com.welfurn.InteriorDesign.dao.ScmInputDao;
+import com.welfurn.InteriorDesign.dao.ScmUpdateInputDao;
+import com.welfurn.InteriorDesign.dao.SizeDao;
+import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
+import com.welfurn.InteriorDesign.entity.Layout;
+import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
+import com.welfurn.InteriorDesign.entity.Size;
 import com.welfurn.InteriorDesign.service.AdminService;
 
 @RestController
@@ -16,11 +27,151 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
+	
+	@RequestMapping(value="/getLayout",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Layout> getLayout()
+	{
+		return adminService.showLayoutData();
+	}
+	
+	@RequestMapping(value="/saveLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String saveLayout(@RequestBody LayoutInputDao layoutInputDao)
+	{
+		
+		return adminService.insertLayout(layoutInputDao.getLayoutName());
+	}
+	
+	@RequestMapping(value="/updateLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateLayout(@RequestBody LayoutInputDao layoutInputDao)
+	{
+		
+		return adminService.updateLayout(layoutInputDao.getId(), layoutInputDao.getLayoutName());
+	}
+	
+
+	@RequestMapping(value="/deleteLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String deleteLayout(@RequestBody LayoutInputDao layoutInputDao)
+	{
+		
+		return adminService.deleteLayout(layoutInputDao.getId());
+	}
+	
+	@RequestMapping(value="/getCCM",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<CabinetCoreMaterial> getCCM()
+	{
+		return adminService.showCCMData();
+	}
+	
 	@RequestMapping(value="/saveCCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public String saveCCM(@RequestBody CcmInputDao ccmInputDao)
 	{
-		System.out.println("inputs"+ccmInputDao.getCcmName()+ccmInputDao.getCcmPrice());
-		return adminService.InsertCCM(ccmInputDao.getCcmName(), ccmInputDao.getCcmPrice());		
+		
+		return adminService.InsertCCM(ccmInputDao.getCcmName());		
 	}
+	
+	@RequestMapping(value="/updateCCMName",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateCCMName(@RequestBody CcmUpdateInputDao ccmUpdateInputDao)
+	{
+		return adminService.UpdateCCMName(ccmUpdateInputDao.getId(), ccmUpdateInputDao.getCcmName());
+	}
+	
+	@RequestMapping(value="/deleteCCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String deleteCCM(@RequestBody CcmUpdateInputDao ccmUpdateInputDao)
+	{
+		
+		return adminService.deleteCCM(ccmUpdateInputDao.getId());
+	}
+		
+	
+	@RequestMapping(value="/getSCM",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ShutterCoreMaterial> getSCM()
+	{
+		return adminService.showSCMData();
+	}
+	
+	
+	@RequestMapping(value="/saveSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String saveSCM(@RequestBody ScmInputDao scmInputDao)
+	{
+		
+		return adminService.InsertSCM(scmInputDao.getScmName(), scmInputDao.getScmPrice(),scmInputDao.getBaseCategory());		
+	}
+	
+	@RequestMapping(value="/updateSCMPrice",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSCMPrice(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
+	{
+		return adminService.UpdateSCMPrice(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(), scmUpdateInputDao.getScmPrice());
+	}
+	
+	@RequestMapping(value="/updateSCMName",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSCMName(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
+	{
+		return adminService.UpdateSCMName(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName());
+	}
+	
+	@RequestMapping(value="/updateSCMbaseCategory",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSCMbaseCategory(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
+	{
+		return adminService.UpdateSCMBaseCategory(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(),scmUpdateInputDao.getBaseCategory());
+	}
+	
+	@RequestMapping(value="/deleteSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String deleteSCM(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
+	{
+		
+		return adminService.deleteSCM(scmUpdateInputDao.getId());
+	}
+	
+	
+	@RequestMapping(value="/getSize",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Size> getSize(String basecategory)
+	{
+		return adminService.getSize(basecategory);
+	}
+	
+	
+	@RequestMapping(value="/saveSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String saveSize(@RequestBody SizeDao sizeDao)
+	{
+		
+		return adminService.saveSize(sizeDao.getTypeSize(),sizeDao.getBaseCategory(),sizeDao.getSqft(),sizeDao.getprice());		
+	}
+	
+	@RequestMapping(value="/updateSizeTypeSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSizeTypeSize(@RequestBody SizeDao sizeDao)
+	{
+		return adminService.updateSizeTypeSize(sizeDao.getId(), sizeDao.getTypeSize());
+	}
+	
+	
+
+	@RequestMapping(value="/updateSizeBaseCategory",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSizeBaseCategory(@RequestBody SizeDao sizeDao)
+	{
+		return adminService.updateSizeBaseCategory(sizeDao.getId(),sizeDao.getBaseCategory());
+	}
+	
+
+	@RequestMapping(value="/updateSizeSqft",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSizeSqft(@RequestBody SizeDao sizeDao)
+	{
+		return adminService.updateSizeSqft(sizeDao.getId(), sizeDao.getSqft());
+	}
+	
+
+	@RequestMapping(value="/updateSizePrice",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSizePrice(@RequestBody SizeDao sizeDao)
+	{
+		return adminService.updateSizePrice(sizeDao.getId(), sizeDao.getprice());
+	}
+	
+	@RequestMapping(value="/deleteSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String deleteSize(@RequestBody SizeDao sizeDao)
+	{
+		
+		return adminService.deleteSize(sizeDao.getId());
+	}
+	
+	
 
 }
