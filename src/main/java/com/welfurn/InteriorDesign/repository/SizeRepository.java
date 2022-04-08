@@ -14,35 +14,35 @@ import com.welfurn.InteriorDesign.entity.Size;
 @Repository
 public interface SizeRepository extends JpaRepository<Size,Integer>{
 	
-	@Query("select * from size s where s.base_category=:baseCategory")
-	public List<Size> getSize(@Param("base_category") String baseCategory);
+	@Query("select s.id,s.typeSize,s.baseCategory,s.sqft,s.price from size s where s.baseCategory=:baseCategory")
+	public List<Size> getSize(@Param("baseCategory") String baseCategory);
 	
 	@Transactional
 	@Modifying
-	@Query("update size s set s.type_size=:typeSize where s.s_id=:id")
-	public void updateSizeTypeSize(@Param("s_id")Integer id, @Param("type_size") String typeSize);
-	
-	
-	@Transactional
-	@Modifying
-	@Query("update size s set s.base_category=:baseCategory where s.s_id=:id")
-	public void updateSizeBaseCategory(@Param("s_id")Integer id, @Param("base_category") String baseCategory);
+	@Query("update size s set s.typeSize=:typeSize where s.id=:id")
+	public void updateSizeTypeSize(@Param("id")Integer id, @Param("typeSize") String typeSize);
 	
 	
 	@Transactional
 	@Modifying
-	@Query("update size s set s.sqft=:sqft where s.s_id=:id")
-	public void updateSizeSqft(@Param("s_id")Integer id, @Param("sqft") String sqft);
+	@Query("update size s set s.baseCategory=:baseCategory where s.id=:id")
+	public void updateSizeBaseCategory(@Param("id")Integer id, @Param("baseCategory") String baseCategory);
+	
 	
 	@Transactional
 	@Modifying
-	@Query("update size s set s.price=:price where s.s_id=:id")
-	public void updateSizePrice(@Param("s_id")Integer id, @Param("price") float price);
+	@Query("update size s set s.sqft=:sqft where s.id=:id")
+	public void updateSizeSqft(@Param("id")Integer id, @Param("sqft") String sqft);
 	
 	@Transactional
 	@Modifying
-	@Query("delete from size s where s.s_id=:s_id")
-	public void deleteSize(@Param("s_id")Integer s_id);
+	@Query("update size s set s.price=:price where s.id=:id")
+	public void updateSizePrice(@Param("id")Integer id, @Param("price") float price);
+	
+	@Transactional
+	@Modifying
+	@Query("delete from size s where s.id=:id")
+	public void deleteSize(@Param("id")Integer s_id);
 	
 
 }

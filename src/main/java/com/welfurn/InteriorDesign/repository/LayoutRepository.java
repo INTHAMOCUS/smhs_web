@@ -12,8 +12,8 @@ public interface LayoutRepository extends JpaRepository<Layout,Integer> {
 	
 	@Transactional
 	@Modifying
-	@Query("update layout l set l.layout_name=:layout_name where l.id=:id")
-	public void updateLayoutName(@Param("id")Integer id, @Param("layout_name") String layout_name);
+	@Query("update layout l set l.layoutName=:layoutName where l.id=:id")
+	public void updateLayoutName(@Param("id")Integer id, @Param("layoutName") String layout_name);
 	
 	@Transactional
 	@Modifying

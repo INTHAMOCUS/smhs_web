@@ -20,8 +20,8 @@ public interface CabinetCoreMaterialRepository extends JpaRepository<CabinetCore
 	
 	@Transactional
 	@Modifying
-	@Query("delete from cabinet_core_material c where c.ccm_id=:ccm_id")
-	public void deleteCCM(@Param("ccm_id")Integer ccm_id);
+	@Query("delete from cabinet_core_material c where c.ccmId=:ccmId")
+	public void deleteCCM(@Param("ccmId")Integer ccm_id);
 	
 	
 
