@@ -123,10 +123,10 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping(value="/getSize",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Size> getSize(String basecategory)
+	@RequestMapping(value="/getSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<Size> getSize(@RequestBody SizeDao sizeDao)
 	{
-		return adminService.getSize(basecategory);
+		return adminService.getSize(sizeDao.getBaseCategory());
 	}
 	
 	

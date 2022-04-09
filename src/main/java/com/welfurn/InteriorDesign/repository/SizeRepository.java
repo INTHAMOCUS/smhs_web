@@ -14,7 +14,7 @@ import com.welfurn.InteriorDesign.entity.Size;
 @Repository
 public interface SizeRepository extends JpaRepository<Size,Integer>{
 	
-	@Query("select s.id,s.typeSize,s.baseCategory,s.sqft,s.price from size s where s.baseCategory=:baseCategory")
+	@Query("select s from size s where s.baseCategory=:baseCategory")
 	public List<Size> getSize(@Param("baseCategory") String baseCategory);
 	
 	@Transactional
