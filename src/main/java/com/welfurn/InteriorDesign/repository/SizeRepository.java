@@ -17,27 +17,13 @@ public interface SizeRepository extends JpaRepository<Size,Integer>{
 	@Query("select s from size s where s.baseCategory=:baseCategory")
 	public List<Size> getSize(@Param("baseCategory") String baseCategory);
 	
-	@Transactional
-	@Modifying
-	@Query("update size s set s.typeSize=:typeSize where s.id=:id")
-	public void updateSizeTypeSize(@Param("id")Integer id, @Param("typeSize") String typeSize);
 	
 	
 	@Transactional
 	@Modifying
-	@Query("update size s set s.baseCategory=:baseCategory where s.id=:id")
-	public void updateSizeBaseCategory(@Param("id")Integer id, @Param("baseCategory") String baseCategory);
+	@Query("update size s set s.typeSize=:typeSize,s.baseCategory=:baseCategory,s.sqft=:sqft,s.price=:price where s.id=:id")
+	public void updateSize(@Param("id")Integer id,@Param("typeSize") String typeSize,@Param("baseCategory")  String baseCategory,@Param("sqft") String sqft,@Param("price") float price);
 	
-	
-	@Transactional
-	@Modifying
-	@Query("update size s set s.sqft=:sqft where s.id=:id")
-	public void updateSizeSqft(@Param("id")Integer id, @Param("sqft") String sqft);
-	
-	@Transactional
-	@Modifying
-	@Query("update size s set s.price=:price where s.id=:id")
-	public void updateSizePrice(@Param("id")Integer id, @Param("price") float price);
 	
 	@Transactional
 	@Modifying

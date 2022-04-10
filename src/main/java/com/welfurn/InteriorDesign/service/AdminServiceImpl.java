@@ -11,6 +11,7 @@ import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Size;
+import com.welfurn.InteriorDesign.exception.ValidationException;
 import com.welfurn.InteriorDesign.repository.CabinetCoreMaterialRepository;
 import com.welfurn.InteriorDesign.repository.LayoutRepository;
 import com.welfurn.InteriorDesign.repository.ShutterCoreMaterialRepository;
@@ -98,9 +99,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public String UpdateSCMPrice(Integer scmId,String scmName, float scmPrice)
+	public String UpdateSCM(Integer scmId,String scmName, float scmPrice,String basecategory) throws ValidationException
 	{
-		shutterCoreMaterialRepository.updateSCMPrice(scmId, scmName, scmPrice);
+		if(scmId==null || scmName==null || basecategory==null  )
+		{
+			throw new ValidationException();
+		}
+		shutterCoreMaterialRepository.updateSCM(scmId, scmName, scmPrice,basecategory);
 		return "Updated successfully";
 	}
 
@@ -110,17 +115,6 @@ public class AdminServiceImpl implements AdminService {
 		return "Updated Successfully";
 	}
 
-	@Override
-	public String UpdateSCMName(Integer scmId, String scmName) {
-		shutterCoreMaterialRepository.updateSCMName(scmId, scmName);
-		return "Updated Successfully";
-	}
-	
-	public String UpdateSCMBaseCategory(Integer scmId,String scmName, String basecategory)
-	{
-		shutterCoreMaterialRepository.updateSCMBaseCategory(scmId, scmName, basecategory);
-		return "Updated Successfully";
-	}
 	
 	public String deleteSCM(Integer id)
 	{
@@ -129,10 +123,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	
-	public String saveSize(String typeSize,String baseCategory,String sqft,float accessoriesPrice)
+	public String saveSize(String typeSize,String baseCategory,String sqft,float price)
 	{
 		Size size=new Size();
-		size.setAccessoriesPrice(accessoriesPrice);
+		size.setPrice(price);
 		size.setBaseCategory(baseCategory);
 		size.setSqft(sqft);
 		size.setTypeSize(typeSize);
@@ -146,30 +140,19 @@ public class AdminServiceImpl implements AdminService {
 		return sizeRepository.getSize(baseCategory);
 	}
 
-	@Override
-	public String updateSizeTypeSize(Integer id, String typeSize) {
-		sizeRepository.updateSizeTypeSize(id, typeSize);
+	public String updateSize(Integer id,String typeSize,String baseCategory,String sqft,float price) throws ValidationException
+	{
+		if(id==null||typeSize==null||baseCategory==null||sqft==null)
+		{
+			throw new ValidationException();
+		}
+		sizeRepository.updateSize(id, typeSize, baseCategory, sqft, price);
 		return "Updated Successfully";
 	}
-
-	@Override
-	public String updateSizeBaseCategory(Integer id, String baseCategory) {
-		sizeRepository.updateSizeBaseCategory(id, baseCategory);
-		return "Updated Successfully";
-	}
-
-	@Override
-	public String updateSizeSqft(Integer id, String sqft) {
-		sizeRepository.updateSizeSqft(id, sqft);
-		return "Updated Successfully";
-	}
-
-	@Override
-	public String updateSizePrice(Integer id, float price) {
-		sizeRepository.updateSizePrice(id, price);
-		return "Updated Successfully";
-	}
-
+	
+	
+	
+	
 	@Override
 	public String deleteSize(Integer id) {
 		sizeRepository.deleteSize(id);

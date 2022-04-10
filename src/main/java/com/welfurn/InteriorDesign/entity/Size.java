@@ -54,7 +54,7 @@ public class Size {
 	public float getPrice() {
 		return price;
 	}
-	public void setAccessoriesPrice(float price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public LocalDateTime getDtCreatedOn() {

@@ -19,6 +19,7 @@ import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Size;
+import com.welfurn.InteriorDesign.exception.ValidationException;
 import com.welfurn.InteriorDesign.service.AdminService;
 
 @RestController
@@ -97,22 +98,10 @@ public class AdminController {
 		return adminService.InsertSCM(scmInputDao.getScmName(), scmInputDao.getScmPrice(),scmInputDao.getBaseCategory());		
 	}
 	
-	@RequestMapping(value="/updateSCMPrice",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSCMPrice(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
+	@RequestMapping(value="/updateSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSCMPrice(@RequestBody ScmUpdateInputDao scmUpdateInputDao) throws Exception
 	{
-		return adminService.UpdateSCMPrice(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(), scmUpdateInputDao.getScmPrice());
-	}
-	
-	@RequestMapping(value="/updateSCMName",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSCMName(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
-	{
-		return adminService.UpdateSCMName(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName());
-	}
-	
-	@RequestMapping(value="/updateSCMbaseCategory",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSCMbaseCategory(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
-	{
-		return adminService.UpdateSCMBaseCategory(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(),scmUpdateInputDao.getBaseCategory());
+		return adminService.UpdateSCM(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(), scmUpdateInputDao.getScmPrice(),scmUpdateInputDao.getBaseCategory());
 	}
 	
 	@RequestMapping(value="/deleteSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -137,33 +126,12 @@ public class AdminController {
 		return adminService.saveSize(sizeDao.getTypeSize(),sizeDao.getBaseCategory(),sizeDao.getSqft(),sizeDao.getprice());		
 	}
 	
-	@RequestMapping(value="/updateSizeTypeSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSizeTypeSize(@RequestBody SizeDao sizeDao)
+	@RequestMapping(value="/updateSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String updateSizeTypeSize(@RequestBody SizeDao sizeDao) throws ValidationException
 	{
-		return adminService.updateSizeTypeSize(sizeDao.getId(), sizeDao.getTypeSize());
+		return adminService.updateSize(sizeDao.getId(), sizeDao.getTypeSize(),sizeDao.getBaseCategory(), sizeDao.getSqft(),sizeDao.getprice());
 	}
 	
-	
-
-	@RequestMapping(value="/updateSizeBaseCategory",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSizeBaseCategory(@RequestBody SizeDao sizeDao)
-	{
-		return adminService.updateSizeBaseCategory(sizeDao.getId(),sizeDao.getBaseCategory());
-	}
-	
-
-	@RequestMapping(value="/updateSizeSqft",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSizeSqft(@RequestBody SizeDao sizeDao)
-	{
-		return adminService.updateSizeSqft(sizeDao.getId(), sizeDao.getSqft());
-	}
-	
-
-	@RequestMapping(value="/updateSizePrice",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSizePrice(@RequestBody SizeDao sizeDao)
-	{
-		return adminService.updateSizePrice(sizeDao.getId(), sizeDao.getprice());
-	}
 	
 	@RequestMapping(value="/deleteSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public String deleteSize(@RequestBody SizeDao sizeDao)

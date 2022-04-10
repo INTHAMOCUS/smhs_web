@@ -8,6 +8,7 @@ import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Size;
+import com.welfurn.InteriorDesign.exception.ValidationException;
 
 @Service
 public interface AdminService {
@@ -24,19 +25,13 @@ public interface AdminService {
 	public List<ShutterCoreMaterial> showSCMData();
 	public String InsertCCM(String ccmName);
 	public String InsertSCM(String scmName, float scmPrice,String baseCategory);
-	public String UpdateSCMPrice(Integer scmId,String scmName, float scmPrice);
-	public String UpdateCCMName(Integer ccmId,String ccmName);
-	public String UpdateSCMName(Integer scmId,String scmName);
-	public String UpdateSCMBaseCategory(Integer scmId,String scmName, String basecategory);
-	
+	public String UpdateSCM(Integer scmId,String scmName, float scmPrice,String basecategory) throws ValidationException;
+	public String UpdateCCMName(Integer ccmId,String ccmName);	
 	public String deleteSCM(Integer id);
 	
 	public String saveSize(String typeSize,String baseCategory,String sqft,float price);
 	public List<Size> getSize(String baseCategory);
-	public String updateSizeTypeSize(Integer id,String typeSize);
-	public String updateSizeBaseCategory(Integer id,String baseCategory);
-	public String updateSizeSqft(Integer id,String sqft);
-	public String updateSizePrice(Integer id,float price);
+	public String updateSize(Integer id,String typeSize,String baseCategory,String sqft,float price) throws ValidationException;
 	
 	public String deleteSize(Integer id);
 	

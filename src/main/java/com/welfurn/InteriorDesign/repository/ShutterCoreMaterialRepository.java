@@ -13,18 +13,9 @@ public interface ShutterCoreMaterialRepository extends JpaRepository<ShutterCore
 	
 	@Transactional
 	@Modifying
-	@Query("update shutter_core_material s set s.scmPrice=:scmPrice where s.scmName=:scmName and s.scmId=:scmId")
-	public void updateSCMPrice(@Param("scmId")Integer scmId, @Param("scmName") String scmName,@Param("scmPrice")float scmPrice);
+	@Query("update shutter_core_material s set s.baseCategory=:baseCategory,s.scmName=:scmName,s.scmPrice=:scmPrice where s.scmId=:scmId")
+	public void updateSCM(@Param("scmId")Integer scmId, @Param("scmName") String scmName,@Param("scmPrice")float scmPrice,@Param("baseCategory")String baseCategory);
 	
-	@Transactional
-	@Modifying
-	@Query("update shutter_core_material s set s.scmName=:scmName where s.scmId=:scmId")
-	public void updateSCMName(@Param("scmId")Integer scmId, @Param("scmName") String scmName);
-	
-	@Transactional
-	@Modifying
-	@Query("update shutter_core_material s set s.baseCategory=:baseCategory where s.scmName=:scmName and s.scmId=:scmId")
-	public void updateSCMBaseCategory(@Param("scmId")Integer scmId, @Param("scmName") String scmName,@Param("baseCategory")String baseCategory);
 	
 	
 	@Transactional
