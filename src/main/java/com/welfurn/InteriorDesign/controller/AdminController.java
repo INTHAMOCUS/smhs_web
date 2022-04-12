@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Size;
 import com.welfurn.InteriorDesign.exception.ValidationException;
 import com.welfurn.InteriorDesign.service.AdminService;
-
+@CrossOrigin
 @RestController
 public class AdminController {
 	
