@@ -44,7 +44,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/updateLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateLayout(@RequestBody LayoutInputDao layoutInputDao)
+	public String updateLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
 	{
 		
 		return adminService.updateLayout(layoutInputDao.getId(), layoutInputDao.getLayoutName());
@@ -52,7 +52,7 @@ public class AdminController {
 	
 
 	@RequestMapping(value="/deleteLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteLayout(@RequestBody LayoutInputDao layoutInputDao)
+	public String deleteLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
 	{
 		
 		return adminService.deleteLayout(layoutInputDao.getId());
@@ -72,13 +72,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/updateCCMName",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateCCMName(@RequestBody CcmUpdateInputDao ccmUpdateInputDao)
+	public String updateCCMName(@RequestBody CcmUpdateInputDao ccmUpdateInputDao) throws Exception
 	{
 		return adminService.UpdateCCMName(ccmUpdateInputDao.getId(), ccmUpdateInputDao.getCcmName());
 	}
 	
 	@RequestMapping(value="/deleteCCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteCCM(@RequestBody CcmUpdateInputDao ccmUpdateInputDao)
+	public String deleteCCM(@RequestBody CcmUpdateInputDao ccmUpdateInputDao) throws Exception
 	{
 		
 		return adminService.deleteCCM(ccmUpdateInputDao.getId());
@@ -106,7 +106,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/deleteSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteSCM(@RequestBody ScmUpdateInputDao scmUpdateInputDao)
+	public String deleteSCM(@RequestBody ScmUpdateInputDao scmUpdateInputDao) throws Exception
 	{
 		
 		return adminService.deleteSCM(scmUpdateInputDao.getId());
@@ -128,14 +128,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/updateSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSizeTypeSize(@RequestBody SizeDao sizeDao) throws ValidationException
+	public String updateSizeTypeSize(@RequestBody SizeDao sizeDao) throws Exception,ValidationException
 	{
 		return adminService.updateSize(sizeDao.getId(), sizeDao.getTypeSize(),sizeDao.getBaseCategory(), sizeDao.getSqft(),sizeDao.getprice());
 	}
 	
 	
 	@RequestMapping(value="/deleteSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteSize(@RequestBody SizeDao sizeDao)
+	public String deleteSize(@RequestBody SizeDao sizeDao) throws Exception
 	{
 		
 		return adminService.deleteSize(sizeDao.getId());

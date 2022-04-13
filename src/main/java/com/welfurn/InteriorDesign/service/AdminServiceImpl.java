@@ -46,20 +46,36 @@ public class AdminServiceImpl implements AdminService {
 		return "Saved successfully";
 	}
 	
-	public String updateLayout(Integer id,String layout_name)
+	public String updateLayout(Integer id,String layout_name) throws Exception
 	{
+		
+		Layout layout=layoutRepository.findlayout(id);
+		if(layout==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		layoutRepository.updateLayoutName(id, layout_name);
 		return "Updated successfully";
 	}
 	
-	public String deleteLayout(Integer id)
+	public String deleteLayout(Integer id) throws Exception
 	{
+		Layout layout=layoutRepository.findlayout(id);
+		if(layout==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		layoutRepository.deleteLayout(id);
 		return "Deleted successfully";
 	}
 	
-	public String deleteCCM(Integer id)
+	public String deleteCCM(Integer id) throws Exception
 	{
+		CabinetCoreMaterial ccm=cabinetCoreMaterialRepository.findCCM(id);
+		if(ccm==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		cabinetCoreMaterialRepository.deleteCCM(id);
 		return "Deleted Successfully";
 	}
@@ -99,8 +115,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public String UpdateSCM(Integer scmId,String scmName, float scmPrice,String basecategory) throws ValidationException
+	public String UpdateSCM(Integer scmId,String scmName, float scmPrice,String basecategory) throws Exception,ValidationException
 	{
+		ShutterCoreMaterial scm=shutterCoreMaterialRepository.findSCM(scmId);
+		if(scm==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		if(scmId==null || scmName==null || basecategory==null  )
 		{
 			throw new ValidationException();
@@ -110,14 +131,24 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public String UpdateCCMName(Integer ccmId, String ccmName) {
+	public String UpdateCCMName(Integer ccmId, String ccmName) throws Exception {
+		CabinetCoreMaterial ccm=cabinetCoreMaterialRepository.findCCM(ccmId);
+		if(ccm==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		cabinetCoreMaterialRepository.updateCCMName(ccmId, ccmName);
 		return "Updated Successfully";
 	}
 
 	
-	public String deleteSCM(Integer id)
+	public String deleteSCM(Integer id) throws Exception
 	{
+		ShutterCoreMaterial scm=shutterCoreMaterialRepository.findSCM(id);
+		if(scm==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		shutterCoreMaterialRepository.deleteSCM(id);
 		return "Deleted Sucessfully";
 	}
@@ -140,8 +171,13 @@ public class AdminServiceImpl implements AdminService {
 		return sizeRepository.getSize(baseCategory);
 	}
 
-	public String updateSize(Integer id,String typeSize,String baseCategory,String sqft,float price) throws ValidationException
+	public String updateSize(Integer id,String typeSize,String baseCategory,String sqft,float price) throws Exception,ValidationException
 	{
+		Size size=sizeRepository.findSize(id);
+		if(size==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		if(id==null||typeSize==null||baseCategory==null||sqft==null)
 		{
 			throw new ValidationException();
@@ -154,7 +190,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	
 	@Override
-	public String deleteSize(Integer id) {
+	public String deleteSize(Integer id) throws Exception {
+		Size size=sizeRepository.findSize(id);
+		if(size==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
 		sizeRepository.deleteSize(id);
 		return "Deleted Successfully";
 	}

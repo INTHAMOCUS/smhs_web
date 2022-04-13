@@ -10,6 +10,9 @@ import com.welfurn.InteriorDesign.entity.Layout;
 
 public interface LayoutRepository extends JpaRepository<Layout,Integer> {
 	
+	@Query("select l from layout l where l.id=:id")
+	public Layout findlayout(@Param("id") Integer id);
+	
 	@Transactional
 	@Modifying
 	@Query("update layout l set l.layoutName=:layoutName where l.id=:id")

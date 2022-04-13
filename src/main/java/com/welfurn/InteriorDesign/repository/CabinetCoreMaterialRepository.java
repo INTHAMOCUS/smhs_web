@@ -11,7 +11,8 @@ import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 @Repository
 public interface CabinetCoreMaterialRepository extends JpaRepository<CabinetCoreMaterial,Integer> {
 	
-	
+	@Query("select c from cabinet_core_material c where c.ccmId=:ccmId")
+	public CabinetCoreMaterial findCCM(@Param("ccmId") Integer ccmId);
 	
 	@Transactional
 	@Modifying

@@ -11,6 +11,10 @@ import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 @Repository
 public interface ShutterCoreMaterialRepository extends JpaRepository<ShutterCoreMaterial,Integer>{
 	
+	@Query("select s from shutter_core_material s where s.scmId=:scmId")
+	public ShutterCoreMaterial findSCM(@Param("scmId")Integer scmId);
+	
+	
 	@Transactional
 	@Modifying
 	@Query("update shutter_core_material s set s.baseCategory=:baseCategory,s.scmName=:scmName,s.scmPrice=:scmPrice where s.scmId=:scmId")
