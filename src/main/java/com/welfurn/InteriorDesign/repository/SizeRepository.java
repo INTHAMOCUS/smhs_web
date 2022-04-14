@@ -18,7 +18,7 @@ public interface SizeRepository extends JpaRepository<Size,Integer>{
 	public Size findSize(@Param("id")Integer id);
 	
 	
-	@Query("select s from size s where s.baseCategory=:baseCategory")
+	@Query("select s from size s where s.baseCategory=:baseCategory order by id asc")
 	public List<Size> getSize(@Param("baseCategory") String baseCategory);
 	
 	

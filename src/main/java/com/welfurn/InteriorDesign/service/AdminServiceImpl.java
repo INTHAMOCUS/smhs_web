@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.welfurn.InteriorDesign.dao.CcmDao;
@@ -34,7 +35,7 @@ public class AdminServiceImpl implements AdminService {
 
 	public List<Layout> showLayoutData()
 	{
-		return layoutRepository.findAll();
+		return layoutRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 	}
 	
 	public String insertLayout(String layout_name)
@@ -83,13 +84,13 @@ public class AdminServiceImpl implements AdminService {
 	
 	public List<CabinetCoreMaterial> showCCMData()
 	{
-		List<CabinetCoreMaterial> ccmlst=cabinetCoreMaterialRepository.findAll();
+		List<CabinetCoreMaterial> ccmlst=cabinetCoreMaterialRepository.findAll(Sort.by(Sort.Direction.ASC, "ccmId"));
 		return ccmlst;
 	}
 	
 	public List<ShutterCoreMaterial> showSCMData()
 	{
-		List<ShutterCoreMaterial> scmlst=shutterCoreMaterialRepository.findAll();
+		List<ShutterCoreMaterial> scmlst=shutterCoreMaterialRepository.findAll(Sort.by(Sort.Direction.ASC, "scmId"));
 		return scmlst;
 	}
 

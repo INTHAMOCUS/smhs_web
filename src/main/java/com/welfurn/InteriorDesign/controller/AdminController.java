@@ -3,7 +3,9 @@ package com.welfurn.InteriorDesign.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +39,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/saveLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String saveLayout(@RequestBody LayoutInputDao layoutInputDao)
+	public ResponseEntity<Object> saveLayout(@RequestBody LayoutInputDao layoutInputDao)
 	{
 		
-		return adminService.insertLayout(layoutInputDao.getLayoutName());
+		String output=adminService.insertLayout(layoutInputDao.getLayoutName());
+		ResponseEntity<Object> entity = new ResponseEntity<>(output,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/updateLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
