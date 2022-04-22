@@ -3,10 +3,11 @@ package com.welfurn.InteriorDesign.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 import com.welfurn.InteriorDesign.repository.ShutterCoreMaterialRepository;
-
+@Service
 public class CustomerServiceImpl implements CustomerService {
 	
 	
