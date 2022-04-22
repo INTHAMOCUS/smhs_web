@@ -1,5 +1,7 @@
 package com.welfurn.InteriorDesign.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,5 +28,9 @@ public interface ShutterCoreMaterialRepository extends JpaRepository<ShutterCore
 	@Modifying
 	@Query("delete from shutter_core_material s where s.scmId=:scmId")
 	public void deleteSCM(@Param("scmId")Integer scm_id);
+	
+	
+	@Query("select s from shutter_core_material s where s.baseCategory=:baseCategory")
+	public List<ShutterCoreMaterial> getSCMforCustomer(@Param("baseCategory") String baseCategory);
 
 }
