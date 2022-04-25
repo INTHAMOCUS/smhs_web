@@ -51,18 +51,33 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/updateLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
+	public ResponseEntity<Object> updateLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
 	{
 		
-		return adminService.updateLayout(layoutInputDao.getId(), layoutInputDao.getLayoutName());
+		String output= adminService.updateLayout(layoutInputDao.getId(), layoutInputDao.getLayoutName());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
+	
+//	@RequestMapping(value="/updateLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+//	public String updateLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
+//	{
+//		
+//		return adminService.updateLayout(layoutInputDao.getId(), layoutInputDao.getLayoutName());
+//	}
 	
 
 	@RequestMapping(value="/deleteLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
+	public ResponseEntity<Object> deleteLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
 	{
 		
-		return adminService.deleteLayout(layoutInputDao.getId());
+		String output= adminService.deleteLayout(layoutInputDao.getId());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/getCCM",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,23 +87,35 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/saveCCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String saveCCM(@RequestBody CcmInputDao ccmInputDao)
+	public ResponseEntity<Object> saveCCM(@RequestBody CcmInputDao ccmInputDao)
 	{
 		
-		return adminService.InsertCCM(ccmInputDao.getCcmName());		
+		String output= adminService.InsertCCM(ccmInputDao.getCcmName());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/updateCCMName",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateCCMName(@RequestBody CcmUpdateInputDao ccmUpdateInputDao) throws Exception
+	public ResponseEntity<Object> updateCCMName(@RequestBody CcmUpdateInputDao ccmUpdateInputDao) throws Exception
 	{
-		return adminService.UpdateCCMName(ccmUpdateInputDao.getId(), ccmUpdateInputDao.getCcmName());
+		String output= adminService.UpdateCCMName(ccmUpdateInputDao.getId(), ccmUpdateInputDao.getCcmName());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/deleteCCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteCCM(@RequestBody CcmUpdateInputDao ccmUpdateInputDao) throws Exception
+	public ResponseEntity<Object> deleteCCM(@RequestBody CcmUpdateInputDao ccmUpdateInputDao) throws Exception
 	{
 		
-		return adminService.deleteCCM(ccmUpdateInputDao.getId());
+		String output= adminService.deleteCCM(ccmUpdateInputDao.getId());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 		
 	
@@ -100,23 +127,35 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/saveSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String saveSCM(@RequestBody ScmInputDao scmInputDao)
+	public  ResponseEntity<Object> saveSCM(@RequestBody ScmInputDao scmInputDao)
 	{
 		
-		return adminService.InsertSCM(scmInputDao.getScmName(), scmInputDao.getScmPrice(),scmInputDao.getBaseCategory());		
+		String output= adminService.InsertSCM(scmInputDao.getScmName(), scmInputDao.getScmPrice(),scmInputDao.getBaseCategory());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/updateSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSCMPrice(@RequestBody ScmUpdateInputDao scmUpdateInputDao) throws Exception
+	public ResponseEntity<Object> updateSCMPrice(@RequestBody ScmUpdateInputDao scmUpdateInputDao) throws Exception
 	{
-		return adminService.UpdateSCM(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(), scmUpdateInputDao.getScmPrice(),scmUpdateInputDao.getBaseCategory());
+		String output= adminService.UpdateSCM(scmUpdateInputDao.getId(), scmUpdateInputDao.getScmName(), scmUpdateInputDao.getScmPrice(),scmUpdateInputDao.getBaseCategory());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/deleteSCM",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteSCM(@RequestBody ScmUpdateInputDao scmUpdateInputDao) throws Exception
+	public ResponseEntity<Object> deleteSCM(@RequestBody ScmUpdateInputDao scmUpdateInputDao) throws Exception
 	{
 		
-		return adminService.deleteSCM(scmUpdateInputDao.getId());
+		String output= adminService.deleteSCM(scmUpdateInputDao.getId());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	
@@ -128,24 +167,36 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/saveSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String saveSize(@RequestBody SizeDao sizeDao)
+	public ResponseEntity<Object> saveSize(@RequestBody SizeDao sizeDao)
 	{
 		
-		return adminService.saveSize(sizeDao.getTypeSize(),sizeDao.getBaseCategory(),sizeDao.getSqft(),sizeDao.getprice());		
+		String output= adminService.saveSize(sizeDao.getTypeSize(),sizeDao.getBaseCategory(),sizeDao.getSqft(),sizeDao.getprice());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	@RequestMapping(value="/updateSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String updateSizeTypeSize(@RequestBody SizeDao sizeDao) throws Exception,ValidationException
+	public ResponseEntity<Object> updateSizeTypeSize(@RequestBody SizeDao sizeDao) throws Exception,ValidationException
 	{
-		return adminService.updateSize(sizeDao.getId(), sizeDao.getTypeSize(),sizeDao.getBaseCategory(), sizeDao.getSqft(),sizeDao.getprice());
+		String output= adminService.updateSize(sizeDao.getId(), sizeDao.getTypeSize(),sizeDao.getBaseCategory(), sizeDao.getSqft(),sizeDao.getprice());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	
 	@RequestMapping(value="/deleteSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteSize(@RequestBody SizeDao sizeDao) throws Exception
+	public ResponseEntity<Object> deleteSize(@RequestBody SizeDao sizeDao) throws Exception
 	{
 		
-		return adminService.deleteSize(sizeDao.getId());
+		String output= adminService.deleteSize(sizeDao.getId());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
 	}
 	
 	
