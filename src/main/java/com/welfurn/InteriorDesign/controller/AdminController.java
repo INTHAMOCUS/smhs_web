@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.welfurn.InteriorDesign.dao.AdminResponse;
 import com.welfurn.InteriorDesign.dao.CcmInputDao;
 import com.welfurn.InteriorDesign.dao.CcmUpdateInputDao;
 import com.welfurn.InteriorDesign.dao.LayoutInputDao;
@@ -43,7 +44,9 @@ public class AdminController {
 	{
 		
 		String output=adminService.insertLayout(layoutInputDao.getLayoutName());
-		ResponseEntity<Object> entity = new ResponseEntity<>(output,HttpStatus.OK);
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
 		return entity;
 	}
 	
