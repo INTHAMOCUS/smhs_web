@@ -42,7 +42,7 @@ public class CustomerController {
 		return entity;
 	}
 	
-	@RequestMapping(value="/getIntermediateData",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getIntermediateData",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> getIntermediateData(@RequestBody IntermediateData intermediateData) throws Exception
 	{
 		List<SessionIntermediateData> response=customerService.getIntermediateData(intermediateData.getCustomer_id());
