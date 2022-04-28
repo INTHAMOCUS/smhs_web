@@ -1,5 +1,7 @@
 package com.welfurn.InteriorDesign.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +25,5 @@ public interface CabinetCoreMaterialRepository extends JpaRepository<CabinetCore
 	@Modifying
 	@Query("delete from cabinet_core_material c where c.ccmId=:ccmId")
 	public void deleteCCM(@Param("ccmId")Integer ccm_id);
-	
-	
 
 }

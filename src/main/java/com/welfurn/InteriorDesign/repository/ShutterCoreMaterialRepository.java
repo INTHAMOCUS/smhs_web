@@ -30,7 +30,7 @@ public interface ShutterCoreMaterialRepository extends JpaRepository<ShutterCore
 	public void deleteSCM(@Param("scmId")Integer scm_id);
 	
 	
-	@Query("select s from shutter_core_material s where s.baseCategory=:baseCategory")
-	public List<ShutterCoreMaterial> getSCMforCustomer(@Param("baseCategory") String baseCategory);
+	@Query("select s from shutter_core_material s")
+	public List<ShutterCoreMaterial> getSCMforCustomer();
 
 }

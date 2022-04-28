@@ -60,14 +60,7 @@ public class AdminController {
 		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
 		return entity;
 	}
-	
-//	@RequestMapping(value="/updateLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-//	public String updateLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
-//	{
-//		
-//		return adminService.updateLayout(layoutInputDao.getId(), layoutInputDao.getLayoutName());
-//	}
-	
+
 
 	@RequestMapping(value="/deleteLayout",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> deleteLayout(@RequestBody LayoutInputDao layoutInputDao) throws Exception
