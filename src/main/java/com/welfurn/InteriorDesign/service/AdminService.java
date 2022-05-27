@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
-import com.welfurn.InteriorDesign.entity.Size;
+import com.welfurn.InteriorDesign.entity.Sizing;
 import com.welfurn.InteriorDesign.exception.ValidationException;
 
 @Service
@@ -29,9 +29,9 @@ public interface AdminService {
 	public String UpdateCCMName(Integer ccmId,String ccmName) throws Exception;	
 	public String deleteSCM(Integer id) throws Exception;
 	
-	public String saveSize(String typeSize,String baseCategory,String sqft,float price);
-	public List<Size> getSize(String baseCategory);
-	public String updateSize(Integer id,String typeSize,String baseCategory,String sqft,float price) throws Exception,ValidationException;
+	public String saveSize(String ccmName,String cabinetType,String width,String height,String depth,float price);
+	public List<Sizing> getSize(String ccmName);
+	public String updateSize(Integer id,String ccmName,String cabinetType,String width,String height,String depth,float price) throws Exception,ValidationException;
 	
 	public String deleteSize(Integer id) throws Exception;
 	

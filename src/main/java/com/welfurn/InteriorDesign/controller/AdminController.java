@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.welfurn.InteriorDesign.dao.AdminResponse;
 import com.welfurn.InteriorDesign.dao.CcmInputDao;
 import com.welfurn.InteriorDesign.dao.CcmUpdateInputDao;
 import com.welfurn.InteriorDesign.dao.LayoutInputDao;
 import com.welfurn.InteriorDesign.dao.ScmInputDao;
 import com.welfurn.InteriorDesign.dao.ScmUpdateInputDao;
-import com.welfurn.InteriorDesign.dao.SizeDao;
+import com.welfurn.InteriorDesign.dao.SizingDao;
 import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
-import com.welfurn.InteriorDesign.entity.Size;
+import com.welfurn.InteriorDesign.entity.Sizing;
 import com.welfurn.InteriorDesign.exception.ValidationException;
 import com.welfurn.InteriorDesign.service.AdminService;
 @CrossOrigin
@@ -153,17 +152,17 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/getSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public List<Size> getSize(@RequestBody SizeDao sizeDao)
+	public List<Sizing> getSize(@RequestBody SizingDao sizeDao)
 	{
-		return adminService.getSize(sizeDao.getBaseCategory());
+		return adminService.getSize(sizeDao.getCcmName());
 	}
 	
 	
 	@RequestMapping(value="/saveSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> saveSize(@RequestBody SizeDao sizeDao)
+	public ResponseEntity<Object> saveSize(@RequestBody SizingDao sizeDao)
 	{
 		
-		String output= adminService.saveSize(sizeDao.getTypeSize(),sizeDao.getBaseCategory(),sizeDao.getSqft(),sizeDao.getprice());
+		String output= adminService.saveSize(sizeDao.getCcmName(),sizeDao.getCabinetType(),sizeDao.getWidth(),sizeDao.getHeight(),sizeDao.getDepth(),sizeDao.getPrice());
 		AdminResponse adminResponse=new AdminResponse();
 		adminResponse.setOutput(output);
 		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
@@ -171,9 +170,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/updateSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> updateSizeTypeSize(@RequestBody SizeDao sizeDao) throws Exception,ValidationException
+	public ResponseEntity<Object> updateSizeTypeSize(@RequestBody SizingDao sizeDao) throws Exception,ValidationException
 	{
-		String output= adminService.updateSize(sizeDao.getId(), sizeDao.getTypeSize(),sizeDao.getBaseCategory(), sizeDao.getSqft(),sizeDao.getprice());
+		String output= adminService.updateSize(sizeDao.getId(),sizeDao.getCcmName(),sizeDao.getCabinetType(),sizeDao.getWidth(),sizeDao.getHeight(),sizeDao.getDepth(),sizeDao.getPrice());
 		AdminResponse adminResponse=new AdminResponse();
 		adminResponse.setOutput(output);
 		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
@@ -182,7 +181,7 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/deleteSize",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> deleteSize(@RequestBody SizeDao sizeDao) throws Exception
+	public ResponseEntity<Object> deleteSize(@RequestBody SizingDao sizeDao) throws Exception
 	{
 		
 		String output= adminService.deleteSize(sizeDao.getId());

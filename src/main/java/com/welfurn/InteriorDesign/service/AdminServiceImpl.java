@@ -11,12 +11,14 @@ import com.welfurn.InteriorDesign.dao.CcmDao;
 import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
-import com.welfurn.InteriorDesign.entity.Size;
+
+import com.welfurn.InteriorDesign.entity.Sizing;
 import com.welfurn.InteriorDesign.exception.ValidationException;
 import com.welfurn.InteriorDesign.repository.CabinetCoreMaterialRepository;
 import com.welfurn.InteriorDesign.repository.LayoutRepository;
 import com.welfurn.InteriorDesign.repository.ShutterCoreMaterialRepository;
-import com.welfurn.InteriorDesign.repository.SizeRepository;
+
+import com.welfurn.InteriorDesign.repository.SizingRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -31,7 +33,8 @@ public class AdminServiceImpl implements AdminService {
 	LayoutRepository layoutRepository;
 	
 	@Autowired
-	SizeRepository sizeRepository;
+	SizingRepository sizingRepository;
+	
 
 	public List<Layout> showLayoutData()
 	{
@@ -154,50 +157,58 @@ public class AdminServiceImpl implements AdminService {
 		return "Deleted Sucessfully";
 	}
 	
-	
-	public String saveSize(String typeSize,String baseCategory,String sqft,float price)
+	@Override
+	public String saveSize(String ccmName,String cabinetType,String width,String height,String depth,float price)
 	{
-		Size size=new Size();
+		Sizing size=new Sizing();
+		size.setCcmName(ccmName);
+		size.setCabinetType(cabinetType);
+		size.setDepth(depth);
+		size.setWidth(width);
+		size.setHeight(height);
 		size.setPrice(price);
-		size.setBaseCategory(baseCategory);
-		size.setSqft(sqft);
-		size.setTypeSize(typeSize);
+		size.setSqft(getSqft(width,height));
 		size.setDtCreatedOn(LocalDateTime.now());
-		sizeRepository.save(size);
+		sizingRepository.save(size);
 		return "Saved successfully";
 	}
-	
-	public List<Size> getSize(String baseCategory)
+	@Override
+	public List<Sizing> getSize(String ccmName)
 	{
-		return sizeRepository.getSize(baseCategory);
+		return sizingRepository.getSize(ccmName);
 	}
-
-	public String updateSize(Integer id,String typeSize,String baseCategory,String sqft,float price) throws Exception,ValidationException
+	@Override
+	public String updateSize(Integer id,String ccmName,String cabinetType,String width,String height,String depth,float price) throws Exception,ValidationException
 	{
-		Size size=sizeRepository.findSize(id);
+		if(id==null||ccmName==null||cabinetType==null||width==null||height==null||depth==null)
+		{
+			throw new ValidationException();
+		}
+		Sizing size=sizingRepository.findSize(id);
 		if(size==null)
 		{
 			throw new Exception("Id value not present in database");
 		}
-		if(id==null||typeSize==null||baseCategory==null||sqft==null)
-		{
-			throw new ValidationException();
-		}
-		sizeRepository.updateSize(id, typeSize, baseCategory, sqft, price);
+		String sqft=getSqft(width,depth);
+		sizingRepository.updateSize(id, ccmName, cabinetType, width, height,depth,sqft,price);
 		return "Updated Successfully";
 	}
 	
+	private String getSqft(String width,String depth)
+	{
+		return width+"x"+depth;
+	}
 	
 	
 	
 	@Override
 	public String deleteSize(Integer id) throws Exception {
-		Size size=sizeRepository.findSize(id);
+		Sizing size=sizingRepository.findSize(id);
 		if(size==null)
 		{
 			throw new Exception("Id value not present in database");
 		}
-		sizeRepository.deleteSize(id);
+		sizingRepository.deleteSize(id);
 		return "Deleted Successfully";
 	}
 	
