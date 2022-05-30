@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.welfurn.InteriorDesign.dao.CustomerDetailsDao;
 import com.welfurn.InteriorDesign.dao.CustomerResponse;
 import com.welfurn.InteriorDesign.dao.IntermediateData;
 import com.welfurn.InteriorDesign.dao.ScmInputDao;
@@ -25,6 +26,21 @@ public class CustomerController {
 	
 	@Autowired
 	CustomerService customerService;
+	
+	@RequestMapping(value="/saveCustomerDetails",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> setIntermediateData(@RequestBody CustomerDetailsDao customerDetailsDao) throws Exception 
+	{
+		String response;
+		try {
+			response = customerService.saveCustomerDetails(customerDetailsDao);
+		} catch (Exception e) {
+			throw new Exception("Please check the customerId passed,Its already present in database. Give a unique id");
+		}
+		CustomerResponse customerResponse=new CustomerResponse();
+		customerResponse.setOutput(response);
+		ResponseEntity<Object> entity = new ResponseEntity<>(customerResponse,HttpStatus.OK);
+		return entity;
+	}
 	
 	@RequestMapping(value="/getSCMForCustomer",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public List<ShutterCoreMaterial> getSCMforCustomer(@RequestBody ScmInputDao scmInputDao) throws Exception

@@ -8,12 +8,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.welfurn.InteriorDesign.dao.CcmDao;
+import com.welfurn.InteriorDesign.entity.Accessories;
 import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 
 import com.welfurn.InteriorDesign.entity.Sizing;
 import com.welfurn.InteriorDesign.exception.ValidationException;
+import com.welfurn.InteriorDesign.repository.AccessoriesRepository;
 import com.welfurn.InteriorDesign.repository.CabinetCoreMaterialRepository;
 import com.welfurn.InteriorDesign.repository.LayoutRepository;
 import com.welfurn.InteriorDesign.repository.ShutterCoreMaterialRepository;
@@ -34,6 +36,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	SizingRepository sizingRepository;
+	
+	@Autowired
+	AccessoriesRepository accessoriesRepository;
 	
 
 	public List<Layout> showLayoutData()
@@ -212,5 +217,47 @@ public class AdminServiceImpl implements AdminService {
 		return "Deleted Successfully";
 	}
 	
+	public String saveAccessories(String cabinetType, String cabinetDesc, String width,String accessoriesType)
+	{
+		Accessories accessories=new Accessories();
+		accessories.setAccessoriesType(accessoriesType);
+		accessories.setCabinetDesc(cabinetDesc);
+		accessories.setCabinetType(cabinetType);
+		accessories.setWidth(width);
+		accessories.setDtCreatedOn(LocalDateTime.now());
+		accessoriesRepository.save(accessories);
+		return "Saved successfully";
+	}
 	
+	public List<Accessories> getAccessories(String cabinetType)
+	{
+		return accessoriesRepository.getAccessories(cabinetType);
+	}
+	
+	public String updateAccessories(Integer id,String cabinetType, String cabinetDesc, String width,String accessoriesType) throws Exception,ValidationException
+	{
+		if(id==null||cabinetDesc==null||cabinetType==null||width==null||accessoriesType==null)
+		{
+			throw new ValidationException();
+		}
+		Accessories accessories=accessoriesRepository.findAccessories(id);
+		if(accessories==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
+		
+		accessoriesRepository.updateAccessories(id, cabinetType, cabinetDesc, width, accessoriesType);
+		return "Updated Successfully";
+		
+	}
+	public String deleteAccessories(Integer id) throws Exception
+	{
+		Accessories accessories=accessoriesRepository.findAccessories(id);
+		if(accessories==null)
+		{
+			throw new Exception("Id value not present in database");
+		}
+		accessoriesRepository.deleteAccessories(id);
+		return "Updated Successfully";
+	}
 }

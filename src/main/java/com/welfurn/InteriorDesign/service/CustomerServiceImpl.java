@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import com.welfurn.InteriorDesign.dao.CustomerDetailsDao;
 import com.welfurn.InteriorDesign.dao.IntermediateData;
+import com.welfurn.InteriorDesign.entity.CustomerDetails;
 import com.welfurn.InteriorDesign.entity.SessionIntermediateData;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
 import com.welfurn.InteriorDesign.repository.CabinetCoreMaterialRepository;
+import com.welfurn.InteriorDesign.repository.CustomerDetailsRepository;
 import com.welfurn.InteriorDesign.repository.SessionIntermediateDataRepository;
 import com.welfurn.InteriorDesign.repository.ShutterCoreMaterialRepository;
 @Service
@@ -25,7 +28,24 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	SessionIntermediateDataRepository sessionIntermediateDataRepository;
-
+	
+	@Autowired
+	CustomerDetailsRepository customerDetailsRepository;
+	
+	
+	public String saveCustomerDetails(CustomerDetailsDao customerDetailsDao) throws Exception
+	{
+		CustomerDetails customerDetails=new CustomerDetails();
+		customerDetails.setAddress(customerDetailsDao.getAddress());
+		customerDetails.setCustomerId(customerDetailsDao.getCustomerId());
+		customerDetails.setCustomerName(customerDetailsDao.getCustomerName());
+		customerDetails.setPincode(customerDetailsDao.getPincode());
+		customerDetails.setState(customerDetailsDao.getState());
+		customerDetailsRepository.save(customerDetails);
+		return "Saved successfully";
+	}
+	
+	
 	@Override
 	public List<ShutterCoreMaterial> getSCMforCustomer(String basecategory) throws Exception {
 		

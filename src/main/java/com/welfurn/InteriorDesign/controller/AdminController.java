@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.welfurn.InteriorDesign.dao.AccessoriesDao;
 import com.welfurn.InteriorDesign.dao.AdminResponse;
 import com.welfurn.InteriorDesign.dao.CcmInputDao;
 import com.welfurn.InteriorDesign.dao.CcmUpdateInputDao;
@@ -18,6 +20,7 @@ import com.welfurn.InteriorDesign.dao.LayoutInputDao;
 import com.welfurn.InteriorDesign.dao.ScmInputDao;
 import com.welfurn.InteriorDesign.dao.ScmUpdateInputDao;
 import com.welfurn.InteriorDesign.dao.SizingDao;
+import com.welfurn.InteriorDesign.entity.Accessories;
 import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
@@ -185,6 +188,48 @@ public class AdminController {
 	{
 		
 		String output= adminService.deleteSize(sizeDao.getId());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
+	}
+	
+	
+	
+	@RequestMapping(value="/getAccessories",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<Accessories> getSize(@RequestBody AccessoriesDao accessoriesDao)
+	{
+		return adminService.getAccessories(accessoriesDao.getCabinetType());
+	}
+	
+	
+	@RequestMapping(value="/saveAccessories",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> saveAccessories(@RequestBody AccessoriesDao accessoriesDao)
+	{
+		
+		String output= adminService.saveAccessories(accessoriesDao.getCabinetType(), accessoriesDao.getCabinetDesc(), accessoriesDao.getWidth(), accessoriesDao.getAccessoriesType());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
+	}
+	
+	@RequestMapping(value="/updateAccessories",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> updateAccessories(@RequestBody AccessoriesDao accessoriesDao) throws Exception,ValidationException
+	{
+		String output= adminService.updateAccessories(accessoriesDao.getId(), accessoriesDao.getCabinetType(), accessoriesDao.getCabinetDesc(), accessoriesDao.getWidth(), accessoriesDao.getAccessoriesType());
+		AdminResponse adminResponse=new AdminResponse();
+		adminResponse.setOutput(output);
+		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);
+		return entity;
+	}
+	
+	
+	@RequestMapping(value="/deleteAccessories",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> deleteAccessories(@RequestBody AccessoriesDao accessoriesDao) throws Exception
+	{
+		
+		String output= adminService.deleteAccessories(accessoriesDao.getId());
 		AdminResponse adminResponse=new AdminResponse();
 		adminResponse.setOutput(output);
 		ResponseEntity<Object> entity = new ResponseEntity<>(adminResponse,HttpStatus.OK);

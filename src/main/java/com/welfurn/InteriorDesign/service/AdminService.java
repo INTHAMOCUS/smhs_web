@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.welfurn.InteriorDesign.entity.Accessories;
 import com.welfurn.InteriorDesign.entity.CabinetCoreMaterial;
 import com.welfurn.InteriorDesign.entity.Layout;
 import com.welfurn.InteriorDesign.entity.ShutterCoreMaterial;
@@ -34,5 +35,14 @@ public interface AdminService {
 	public String updateSize(Integer id,String ccmName,String cabinetType,String width,String height,String depth,float price) throws Exception,ValidationException;
 	
 	public String deleteSize(Integer id) throws Exception;
+	
+	public String saveAccessories(String cabinetType, String cabinetDesc, String width,String accessoriesType);
+	
+	public List<Accessories> getAccessories(String cabinetType);
+	
+	public String updateAccessories(Integer id,String cabinetType, String cabinetDesc, String width,String accessoriesType) throws Exception,ValidationException;
+	
+	public String deleteAccessories(Integer id) throws Exception;
+	
 	
 }
